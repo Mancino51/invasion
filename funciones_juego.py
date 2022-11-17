@@ -54,15 +54,16 @@ def update_balas(balas):
     """Actualiza la posicion de las balas y elimna las antiguas"""
     # Actualiza las posiciones de las balas
     balas.update()
+    
 
     # Deshace las balas que han desaparecido
     for bala in balas.copy():
         if bala.rect.bottom <= 0:
             balas.remove(bala)
 
-    def fuego_bala(ai_configuraciones, pantalla, nave, balas):
-        """Dispara una bala si aun no ha alcanzado el limite"""
-        # Crea una nueva bala y la agrega al grupo de balas
-        if len(balas) < ai_configuraciones.balas_allowed:
-            nueva_bala = Bala(ai_configuraciones, pantalla, nave)
-            balas.add(nueva_bala)
+def fuego_bala(ai_configuraciones, pantalla, nave, balas):
+    """Dispara una bala si aun no ha alcanzado el limite"""
+    # Crea una nueva bala y la agrega al grupo de balas
+    if len(balas) < ai_configuraciones.balas_allowed:
+        nueva_bala = Bala(ai_configuraciones, pantalla, nave)
+        balas.add(nueva_bala)
