@@ -36,7 +36,7 @@ def verificar_eventos(ai_configuraciones, pantalla, nave, balas):
             verificar_eventos_keyup(event, nave)
 
 
-def actualizar_pantalla(ai_configutaciones, pantalla, nave, balas):
+def actualizar_pantalla(ai_configutaciones, pantalla, nave,alien,  balas):
     """Actualiza las imagenes en la pantalla y pasa a la nueva pantalla"""
 
     # Volver s dibujar la pantalla durante cada pasada por el bucle
@@ -45,6 +45,8 @@ def actualizar_pantalla(ai_configutaciones, pantalla, nave, balas):
     for bala in balas.sprites():
         bala.draw_bala()
     nave.blitme()
+    alien.blitme()
+    
 
     # Hacer visible la pantalla dibujasa mas reciente
     pygame.display.flip()

@@ -5,6 +5,9 @@ from configuraciones import Configuraciones
 
 from nave import Nave
 
+from alien import Alien
+
+
 import funciones_juego as fj
 
 
@@ -20,6 +23,9 @@ def run_game():
     # Crea un grupo para almacenar las balas
     balas = Group()
 
+    # Crea un alien
+    alien = Alien(ai_configuraciones, pantalla)
+    
     # Iniciar bucle principal del juego
     while True:
 
@@ -27,7 +33,7 @@ def run_game():
         fj.verificar_eventos(ai_configuraciones, pantalla, nave, balas)
         nave.update()
         fj.update_balas(balas)
-        fj.actualizar_pantalla(ai_configuraciones, pantalla, nave, balas)
+        fj.actualizar_pantalla(ai_configuraciones, pantalla, nave, alien, balas)
 
 
 run_game()
