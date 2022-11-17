@@ -10,8 +10,8 @@ class Alien(Sprite):
         self.ai_configuaciones = ai_configuraciones
         
         # Carga la imagen del alien  y estable suatributo rec
-        self.imagen = pygame.image.load("imagenes/alien.bmp")
-        self.rect = self.imagen.get_rect()
+        self.image = pygame.image.load("imagenes/alien.bmp")
+        self.rect = self.image.get_rect()
         
         # Inicia cada nuevo alien cer de lapsrte superior izq de lapantalla
         self.rect.x = self.rect.width

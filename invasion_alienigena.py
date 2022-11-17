@@ -5,8 +5,6 @@ from configuraciones import Configuraciones
 
 from nave import Nave
 
-from alien import Alien
-
 
 import funciones_juego as fj
 
@@ -17,14 +15,15 @@ def run_game():
     ai_configuraciones = Configuraciones()
     pantalla = pygame.display.set_mode((ai_configuraciones.screen_width, ai_configuraciones.screen_height))
     pygame.display.set_caption("Invasión_Alienígena")
-
-    # Crea una nave
+    
+    
+    # Crea un nave , un grupo de balas y un grupo de aliens
     nave = Nave(ai_configuraciones, pantalla)
-    # Crea un grupo para almacenar las balas
     balas = Group()
-
-    # Crea un alien
-    alien = Alien(ai_configuraciones, pantalla)
+    aliens = Group()
+    
+    # Crea flota alienigenas
+    fj.crear_flota(ai_configuraciones, pantalla, aliens)
     
     # Iniciar bucle principal del juego
     while True:
@@ -33,7 +32,7 @@ def run_game():
         fj.verificar_eventos(ai_configuraciones, pantalla, nave, balas)
         nave.update()
         fj.update_balas(balas)
-        fj.actualizar_pantalla(ai_configuraciones, pantalla, nave, alien, balas)
+        fj.actualizar_pantalla(ai_configuraciones, pantalla, nave, aliens, balas)
 
 
 run_game()
