@@ -60,7 +60,7 @@ def update_balas(balas):
     # Actualiza las posiciones de las balas
     balas.update()
     
-
+    
     # Deshace las balas que han desaparecido
     for bala in balas.copy():
         if bala.rect.bottom <= 0:
@@ -79,23 +79,50 @@ def get_number_aliens_x(ai_configuraciones, alien_width):
     number_aliens_x = int(available_space_x / (2 * alien_width))
     return number_aliens_x
 
-def crear_alien(ai_configuraciones, pantalla, aliens, alien_number):
+def get_number_rows(ai_configuraciones, nave_height, alien_height):
+    """Determina el numero de filas de alien que se ajustan a la pantalla"""
+    available_space_y = (ai_configuraciones.screen_height - (3 * alien_height) - nave_height)
+    number_rows = int(available_space_y / (2 * alien_height))
+    return number_rows
+
+def crear_alien(ai_configuraciones, pantalla, aliens, alien_number,row_number):
     """Crea un alien y lo coloca en la fila"""
     alien = Alien(ai_configuraciones, pantalla)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
+    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
     aliens.add(alien) 
     
-        
-def crear_flota(ai_configuraciones, pantalla, aliens):
+    
+def crear_flota(ai_configuraciones, pantalla, nave, aliens):
     """Crea una flota completa de Aliens"""
     # Crea un Alien y encuentra el numero de Aliens seguidos
     # El espacio entre cada Alien es = a un ancho de Alien
     alien = Alien(ai_configuraciones, pantalla)
     number_aliens_x = get_number_aliens_x(ai_configuraciones, alien.rect.width)
+    number_rows = get_number_rows(ai_configuraciones, nave.rect.height, alien.rect.height)
+    
 
-    # Crea la primera fila de aliens
-    for alien_number in range(number_aliens_x):
-        crear_alien(ai_configuraciones, pantalla, alien_number)     
+    # Crea la flota  de aliens
+    for row_number in range(number_rows):
+        for alien_number in range(number_aliens_x):
+            crear_alien(ai_configuraciones, pantalla, aliens, alien_number, row_number)   
+
+def check_fleet_edges(ai_configuraciones, aliens):
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_configuraciones, aliens)
+            break
+        
+def change_fleet_direction(ai_configuraciones, aliens):
+    """desciente toda la flota y cambia la direcion de la flota"""
+    for alien in aliens.sprites():
+        alien.rect.y += ai_configuraciones.fleet_drop_speed
+        ai_configuraciones.fleet_direction *= -1
+        
+def update_aliens(ai_configuraciones, aliens):
+    """Comprueba si la flota esta al borde y luego actualiza las posiciones de todos los aliens de la flota"""
+    check_fleet_edges(ai_configuraciones, aliens)
+    aliens.update()
     

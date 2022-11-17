@@ -17,3 +17,15 @@ class Configuraciones(object):
         self.bala_height = 15
         self.bala_color = 60, 60, 60
         self.balas_allowed = 3
+        
+        
+        # COnfiguraciones de ALien
+        self.alien_speed_factor = 1
+        self.fleet_drop_speed = 10
+        
+        # Fleet_direccio, cuando es 1 representa a la derecha; si es -1 representa la izquierda
+        self.fleet_direction = 1 
+        
+        
+        
+        
